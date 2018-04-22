@@ -69,29 +69,9 @@
  * 
  */
 
-class Character {
-    /**
-     * Create a point.
-     * @param {number} IQ - Intelligence Quotient
-     * @param {number} ME - Mental Endurance
-     * @param {number} MA - Mental Affinity
-     * @param {number} PS - Physical Strength
-     * @param {number} PP - Physical Prowess
-     * @param {number} PE - Physical Endurance
-     * @param {number} PB - Physical Beauty
-     */
-    constructor(IQ, ME, MA, PS, PP, PE, PB) {
-        this.IQ = IQ;
-        this.ME = ME;
-        this.MA = MA;
-        this.PS = PS;
-        this.PP = PP;
-        this.PE = PE;
-        this.PB = PB;
-    }
-}
 
-const ATTRIBUTE_BONUS_CHART = [
+const dice = require('rpg-dice')
+const BONUS_ATTRIBUTE_CHART = [
     { value: 16, IQ: .03, ME: 1, MA: .45, PS: 1, PP: 1, PE_a: .05, PE_b: 1, PB: .40, Spd: 1 },
     { value: 17, IQ: .04, ME: 1, MA: .50, PS: 2, PP: 1, PE_a: .06, PE_b: 1, PB: .45, Spd: 1 },
     { value: 18, IQ: .05, ME: 2, MA: .50, PS: 3, PP: 2, PE_a: .07, PE_b: 2, PB: .50, Spd: 1 },
@@ -120,3 +100,215 @@ const ATTRIBUTE_BONUS_CHART = [
     { value: 41, IQ: .28, ME: 13, MA: .99, PS: 26, PP: 13, PE_a: .30, PE_b: 13, PB: .99, Spd: 6 },
     { value: 42, IQ: .29, ME: 13, MA: .99, PS: 27, PP: 14, PE_a: .31, PE_b: 14, PB: .99, Spd: 7 }
 ]
+const ANIMAL_CHART = [
+    {
+        category: 'Urban Animal',
+        types: [
+            {name: 'Dog', minimum: 1, maximum: 25},
+            {name: 'Cat', minimum: 26, maximum: 45},
+            {name: 'Mouse', minimum: 46, maximum: 50},
+            {name: 'Rat', minimum: 51, maximum: 55},
+            {name: 'Pet Rodent', minimum: 56, maximum: 60},
+            {name: 'Squirrel', minimum: 61, maximum: 65},
+            {name: 'Sparrow', minimum: 66, maximum: 75},
+            {name: 'Pigeon', minimum: 76, maximum: 83},
+            {name: 'Pet Bird', minimum: 84, maximum: 85},
+            {name: 'Bat', minimum: 86, maximum: 88},
+            {name: 'Turtle', minimum: 89, maximum: 92},
+            {name: 'Frog', minimum: 93, maximum: 96},
+            {name: 'Monkey', minimum: 97, maximum: 100}
+        ]
+    },
+    {
+        category: 'Rural Animal',
+        types: [
+            {name: 'Dog', minimum: 1, maximum: 10},
+            {name: 'Cat', minimum: 11, maximum: 15},
+            {name: 'Cow', minimum: 16, maximum: 25},
+            {name: 'Pig', minimum: 26, maximum: 35},
+            {name: 'Chicken', minimum: 36, maximum: 45},
+            {name: 'Duck', minimum: 46, maximum: 50},
+            {name: 'Horse', minimum: 51, maximum: 60},
+            {name: 'Rabbit', minimum: 61, maximum: 70},
+            {name: 'Mouse', minimum: 71, maximum: 80},
+            {name: 'Sheep', minimum: 81, maximum: 85},
+            {name: 'Goat', minimum: 86, maximum: 90},
+            {name: 'Turkey', minimum: 91, maximum: 94},
+            {name: 'Bat', minimum: 95, maximum: 100}
+        ]
+    },
+    {
+        category: 'Wild Animal',
+        types: [
+            {name: 'Wolf', minimum: 1, maximum: 5},
+            {name: 'Coyote', minimum: 6, maximum: 10},
+            {name: 'Fox', minimum: 11, maximum: 15},
+            {name: 'Badger', minimum: 16, maximum: 20},
+            {name: 'Black Bear', minimum: 21, maximum: 25},
+            {name: 'Grizzly Bear', minimum: 26, maximum: 27},
+            {name: 'Mountain Lion', minimum: 28, maximum: 30},
+            {name: 'Bobcat', minimum: 31, maximum: 33},
+            {name: 'Lynx', minimum: 34, maximum: 35},
+            {name: 'Wolverine', minimum: 36, maximum: 37},
+            {name: 'Weasel', minimum: 38, maximum: 45},
+            {name: 'Alligator', minimum: 46, maximum: 49},
+            {name: 'Otter', minimum: 50, maximum: 52},
+            {name: 'Beaver', minimum: 53, maximum: 55},
+            {name: 'Muskrat', minimum: 56, maximum: 60},
+            {name: 'Raccoon', minimum: 61, maximum: 65},
+            {name: 'Opossum', minimum: 66, maximum: 70},
+            {name: 'Skunk', minimum: 71, maximum: 75},
+            {name: 'Porcupine', minimum: 76, maximum: 80},
+            {name: 'Mole', minimum: 81, maximum: 83},
+            {name: 'Marten', minimum: 84, maximum: 85},
+            {name: 'Armadillo', minimum: 86, maximum: 88},
+            {name: 'Deer', minimum: 89, maximum: 95},
+            {name: 'Elk', minimum: 96, maximum: 97},
+            {name: 'Moose', minimum: 98, maximum: 99},
+            {name: 'Boar', minimum: 100, maximum: 100}
+        ]
+    },
+    {
+        category: 'Wild Bird',
+        types: [
+            {name: 'Sparrow', minimum: 1, maximum: 5},
+            {name: 'Robin', minimum: 6, maximum: 10},
+            {name: 'Blue Jay', minimum: 11, maximum: 15},
+            {name: 'Cardinal', minimum: 16, maximum: 20},
+            {name: 'Wild Turkey', minimum: 21, maximum: 30},
+            {name: 'Pheasant', minimum: 31, maximum: 35},
+            {name: 'Grouse', minimum: 36, maximum: 40},
+            {name: 'Quail', minimum: 41, maximum: 50},
+            {name: 'Crow', minimum: 51, maximum: 60},
+            {name: 'Pigeon', minimum: 61, maximum: 65},
+            {name: 'Duck', minimum: 66, maximum: 70},
+            {name: 'Hawk', minimum: 71, maximum: 80},
+            {name: 'Falcon', minimum: 81, maximum: 85},
+            {name: 'Eagle', minimum: 86, maximum: 90},
+            {name: 'Owl', minimum: 91, maximum: 95},
+            {name: 'Escaped Pet Bird', minimum: 96, maximum: 100}
+        ]
+    },
+    {
+        category: 'Zoo Animal',
+        types: [
+            {name: 'Lion', minimum: 1, maximum: 10},
+            {name: 'Tiger', minimum: 11, maximum: 15},
+            {name: 'Leopard', minimum: 16, maximum: 20},
+            {name: 'Cheetah', minimum: 21, maximum: 25},
+            {name: 'Polar Bear', minimum: 26, maximum: 30},
+            {name: 'Crocodile', minimum: 31, maximum: 35},
+            {name: 'Aardvark', minimum: 36, maximum: 40},
+            {name: 'Rhinoceros', minimum: 41, maximum: 45},
+            {name: 'Hippopotamus', minimum: 46, maximum: 50},
+            {name: 'Elephant', minimum: 51, maximum: 60},
+            {name: 'Chimpanzee', minimum: 61, maximum: 65},
+            {name: 'Orangutan', minimum: 66, maximum: 70},
+            {name: 'Gorilla', minimum: 71, maximum: 75},
+            {name: 'Monkey', minimum: 76, maximum: 85},
+            {name: 'Baboon', minimum: 86, maximum: 90},
+            {name: 'Camel', minimum: 91, maximum: 95},
+            {name: 'Buffalo', minimum: 96, maximum: 100},
+        ]
+        
+    }
+]
+
+class Character {
+    /**
+     * Create a Character
+     * @param {number} IQ - Intelligence Quotient
+     * @param {number} ME - Mental Endurance
+     * @param {number} MA - Mental Affinity
+     * @param {number} PS - Physical Strength
+     * @param {number} PP - Physical Prowess
+     * @param {number} PE - Physical Endurance
+     * @param {number} PB - Physical Beauty
+     * @param {number} Spd - Speed
+     */
+    constructor(IQ, ME, MA, PS, PP, PE, PB, Spd) {
+        this.IQ = IQ
+        this.ME = ME
+        this.MA = MA
+        this.PS = PS
+        this.PP = PP
+        this.PE = PE
+        this.PB = PB
+        this.HP = calcHP()
+        this.SDC = calcSDC()
+        this.type = this.calcAnimalType()
+    }
+
+    /**
+     * Calculate Hit Points
+     * Hit Points are determined by rolling a six-sided die and adding the result to the PE. 
+     * Every time the character gains an experience level another 1D6 is added to the total 
+     * Hit Points.
+     * @return {number} Hit Points
+     */
+    calcHP () {
+        return this.PE + dice.roll(1, 6).result
+    }
+
+    /**
+     * Calculate Structural Damage Capacity
+     * SDC points are similar to hit points but represent physical toughness or endurance
+     * rather than life. Damage absorbed by one's SDC might best be thought of as superficial
+     * damage, aches and pains. While damage to one's hit points are considered severe and
+     * life threatening.
+     * @return {number} Structural Damage Capacity
+     */
+    calcSDC () {
+        return this.PE + dice.roll(1, 6).result
+    }
+
+    /**
+     * Calculate Animal Type
+     * What kind of animal was the character originally? Roll percentile dice to find the 
+     * specific table, then roll percentile for specific animal type. Note: Check with the 
+     * game master before rolling. Some GM's may want to restrict the kind of animals in 
+     * the campaign. For example, a game master could decide that all characters will be 
+     * Rural Animals.
+     * @return {string} Animal Type
+     */
+    calcAnimalType () {
+        let roll = dice.roll(1, 100).result
+        let type;
+
+        if (roll > 85) {
+            type = 'Urban'
+        } else if (roll > 75) {
+            type = 'Wild Birds'
+        } else if (roll > 50) {
+            type = 'Wild'
+        } else if (roll > 35) {
+            type = 'Rural'
+        } else {
+            type = 'Urban'
+        }
+    }
+}
+
+const rollAttributes = function () {
+    let roll = {
+        IQ: dice.roll(3, 6).result,
+        ME: dice.roll(3, 6).result,
+        MA: dice.roll(3, 6).result,
+        PS: dice.roll(3, 6).result,
+        PP: dice.roll(3, 6).result,
+        PE: dice.roll(3, 6).result,
+        PB: dice.roll(3, 6).result,
+        Spd: dice.roll(3, 6).result,
+    }
+
+    for (let prop in roll) {
+        if (roll[prop] >= 16) {
+            roll[prop] += dice.roll(1, 6).result
+            console.log(prop + ' is exceptional: ', roll[prop]);
+        } else {
+            console.log(prop + ': ', roll[prop])
+        }
+    }
+}
+
+let roll = rollAttributes();

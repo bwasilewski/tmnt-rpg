@@ -10,6 +10,7 @@
   "author": "benwasilewski@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "rpg-dice": "^0.6.0"
+    "rpg-dice": "^0.6.0",
+    "underscore": "^1.9.0"
   }
 }

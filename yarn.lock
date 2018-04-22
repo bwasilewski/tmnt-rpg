@@ -5,3 +5,7 @@
 rpg-dice@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/rpg-dice/-/rpg-dice-0.6.0.tgz#fe41749ff7d369865996dd54c51fac37a02512e5"
+
+underscore@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.9.0.tgz#31dbb314cfcc88f169cd3692d9149d81a00a73e4"

@@ -71,6 +71,7 @@
 
 
 const dice = require('rpg-dice')
+const _ = require('underscore')
 const BONUS_ATTRIBUTE_CHART = [
     { value: 16, IQ: .03, ME: 1, MA: .45, PS: 1, PP: 1, PE_a: .05, PE_b: 1, PB: .40, Spd: 1 },
     { value: 17, IQ: .04, ME: 1, MA: .50, PS: 2, PP: 1, PE_a: .06, PE_b: 1, PB: .45, Spd: 1 },
@@ -103,6 +104,8 @@ const BONUS_ATTRIBUTE_CHART = [
 const ANIMAL_CHART = [
     {
         category: 'Urban Animal',
+        minimum: 1,
+        maximum: 35,
         types: [
             {name: 'Dog', minimum: 1, maximum: 25},
             {name: 'Cat', minimum: 26, maximum: 45},
@@ -121,6 +124,8 @@ const ANIMAL_CHART = [
     },
     {
         category: 'Rural Animal',
+        minimum: 36,
+        maximum: 50,
         types: [
             {name: 'Dog', minimum: 1, maximum: 10},
             {name: 'Cat', minimum: 11, maximum: 15},
@@ -139,6 +144,8 @@ const ANIMAL_CHART = [
     },
     {
         category: 'Wild Animal',
+        minimum: 51,
+        maximum: 75,
         types: [
             {name: 'Wolf', minimum: 1, maximum: 5},
             {name: 'Coyote', minimum: 6, maximum: 10},
@@ -170,6 +177,8 @@ const ANIMAL_CHART = [
     },
     {
         category: 'Wild Bird',
+        minimum: 76,
+        maximum: 85,
         types: [
             {name: 'Sparrow', minimum: 1, maximum: 5},
             {name: 'Robin', minimum: 6, maximum: 10},
@@ -191,6 +200,8 @@ const ANIMAL_CHART = [
     },
     {
         category: 'Zoo Animal',
+        minimum: 86,
+        maximum: 100,
         types: [
             {name: 'Lion', minimum: 1, maximum: 10},
             {name: 'Tiger', minimum: 11, maximum: 15},
@@ -234,8 +245,9 @@ class Character {
         this.PP = PP
         this.PE = PE
         this.PB = PB
-        this.HP = calcHP()
-        this.SDC = calcSDC()
+        this.HP = this.calcHP()
+        this.SDC = this.calcSDC()
+        this.category = this.calcAnimalCategory()
         this.type = this.calcAnimalType()
     }
 
@@ -271,23 +283,35 @@ class Character {
      * Rural Animals.
      * @return {string} Animal Type
      */
-    calcAnimalType () {
+    calcAnimalCategory () {
         let roll = dice.roll(1, 100).result
-        let type;
+        let category;
 
         if (roll > 85) {
-            type = 'Urban'
+            category = 'Zoo Animals'
         } else if (roll > 75) {
-            type = 'Wild Birds'
+            category = 'Wild Birds'
         } else if (roll > 50) {
-            type = 'Wild'
+            category = 'Wild Animals'
         } else if (roll > 35) {
-            type = 'Rural'
+            category = 'Rural Animals'
         } else {
-            type = 'Urban'
+            category = 'Urban Animals'
         }
+
+        return category;
+    }
+
+    calcAnimalType () {
+        let match = _.where(ANIMAL_CHART, {category: this.category});
+
+        console.log('Match: ', match);
     }
 }
+
+
+
+
 
 const rollAttributes = function () {
     let roll = {
@@ -311,4 +335,5 @@ const rollAttributes = function () {
     }
 }
 
-let roll = rollAttributes();
+// let roll = rollAttributes();
+let ben = new Character(10, 10, 10, 10, 10, 10, 10, 10);

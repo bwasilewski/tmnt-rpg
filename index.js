@@ -2,73 +2,11 @@
  * TMNT RPG
  * A Javascript Text-Based roleplaying game set in the TMNT universe!
  * 
+ * built by Ben Wasilewski <benwasilewski@gmail.com> (http://benwas.com)
  * 
  * The content, rules and inspiration for this project come from the following source:
  * https://rpg.rem.uz/_Collections/Cartoon%20Games/TMNT/TMNT%20-%20Corebook.pdf
  */
-
-/**
- * Character Attribute Key
- * 
- * 
- * Intelligence Quotient (IQ):
- *      Indicated the intelligence of the
- *      character. The exact I.Q. is equal to the I.Q. attribute multiplied times
- *      ten. Characters with an I.Q. of 16 or better will receive a one time
- *      bonus added to all the character's skill percentiles.
- * 
- * Mental Endurance (ME):
- *      Measures the amount of mental and
- *      emotional stress the character can withstand. Animal characters must
- *      have a minimum M.E. of 12 in order to become psionic. Any character
- *      with an M.E. of 16 or higher will have a bonus to save against psionics.
- * 
- * Mental Affinity (MA):
- *      Shows the character's personal charm
- *      and charisma. Natural leaders with an M.A. of 16 or higher have a
- *      bonus to invoke trust or intimidation in others.
- * 
- * Physical Strength (PS):
- *      This is the raw physical power of a
- *      character. The P.S. times 10 indicates how heavy an object (in pounds)
- *      the character can carry. A character can lift 30 times the P.S. Exceptionally
- *      strong characters having P.S. of 15-19 can carry 20 times their
- *      P.S. and lift 40 times their P.S. Someone with a P.S. of 20-23 can
- *      carry 30 times their P.S. and lift 60 times their P.S. Anyone with a
- *      P.S. of 24 or higher can carry 50 times their P.S. and lift 100 times
- *      their P.S. Any character with a P.S. of 16 or better receives a bonus
- *      to damage in hand to hand combat
- *      
- * Physical Prowess (PP):
- *      Shows the degree of dexterity and agility
- *      of the character. A P.P. of 16 or higher is rewarded with bonuses to
- *      dodge, parry and strike.
- * 
- * Physical Endurance (PE):
- *      Demonstrates the character's stamina
- *      and durability. The amount of physical punishment and resistance to
- *      fatigue and disease are determined by P.E. A character can carry the
- *      maximum weight load (see P.S.) for the P.E. times 4 minutes. Carrying
- *      the maximum weight while running or fighting can only be done for
- *      the P.E. times 2 minutes. If a character lifts the maximum weight (see
- *      P.S.), then it can only be held for as many melee rounds (15 seconds
- *      each) as the character has points P.E. A character can run at maximum
- *      speed for one minute for each point of P.E. Character's with a P.E. of
- *      16 or better receive bonuses to save vs. coma, death, and toxins.
- * 
- * Physical Beauty (PB):
- *      Is an indication of the physical attractiveness
- *      of the character. A P.B. of 16 or better will be rewarded with
- *      bonus to charm and impress.
- * 
- * Speed (Spd):
- *      Specifically, this is the character's maximum running
- *      speed. The Spd. times 20 is the number of yards the character
- *      can run in one minute. If the Spd. is 16 or higher, the character has a
- *      bonus to all dodge rolls.
- * 
- */
-
 
 const dice = require('rpg-dice')
 const _ = require('underscore')
@@ -221,9 +159,70 @@ const ANIMAL_CHART = [
             {name: 'Camel', minimum: 91, maximum: 95},
             {name: 'Buffalo', minimum: 96, maximum: 100},
         ]
-        
     }
 ]
+
+/**
+ * Character Attribute Key
+ * 
+ * 
+ * Intelligence Quotient (IQ):
+ *      Indicated the intelligence of the
+ *      character. The exact I.Q. is equal to the I.Q. attribute multiplied times
+ *      ten. Characters with an I.Q. of 16 or better will receive a one time
+ *      bonus added to all the character's skill percentiles.
+ * 
+ * Mental Endurance (ME):
+ *      Measures the amount of mental and
+ *      emotional stress the character can withstand. Animal characters must
+ *      have a minimum M.E. of 12 in order to become psionic. Any character
+ *      with an M.E. of 16 or higher will have a bonus to save against psionics.
+ * 
+ * Mental Affinity (MA):
+ *      Shows the character's personal charm
+ *      and charisma. Natural leaders with an M.A. of 16 or higher have a
+ *      bonus to invoke trust or intimidation in others.
+ * 
+ * Physical Strength (PS):
+ *      This is the raw physical power of a
+ *      character. The P.S. times 10 indicates how heavy an object (in pounds)
+ *      the character can carry. A character can lift 30 times the P.S. Exceptionally
+ *      strong characters having P.S. of 15-19 can carry 20 times their
+ *      P.S. and lift 40 times their P.S. Someone with a P.S. of 20-23 can
+ *      carry 30 times their P.S. and lift 60 times their P.S. Anyone with a
+ *      P.S. of 24 or higher can carry 50 times their P.S. and lift 100 times
+ *      their P.S. Any character with a P.S. of 16 or better receives a bonus
+ *      to damage in hand to hand combat
+ *      
+ * Physical Prowess (PP):
+ *      Shows the degree of dexterity and agility
+ *      of the character. A P.P. of 16 or higher is rewarded with bonuses to
+ *      dodge, parry and strike.
+ * 
+ * Physical Endurance (PE):
+ *      Demonstrates the character's stamina
+ *      and durability. The amount of physical punishment and resistance to
+ *      fatigue and disease are determined by P.E. A character can carry the
+ *      maximum weight load (see P.S.) for the P.E. times 4 minutes. Carrying
+ *      the maximum weight while running or fighting can only be done for
+ *      the P.E. times 2 minutes. If a character lifts the maximum weight (see
+ *      P.S.), then it can only be held for as many melee rounds (15 seconds
+ *      each) as the character has points P.E. A character can run at maximum
+ *      speed for one minute for each point of P.E. Character's with a P.E. of
+ *      16 or better receive bonuses to save vs. coma, death, and toxins.
+ * 
+ * Physical Beauty (PB):
+ *      Is an indication of the physical attractiveness
+ *      of the character. A P.B. of 16 or better will be rewarded with
+ *      bonus to charm and impress.
+ * 
+ * Speed (Spd):
+ *      Specifically, this is the character's maximum running
+ *      speed. The Spd. times 20 is the number of yards the character
+ *      can run in one minute. If the Spd. is 16 or higher, the character has a
+ *      bonus to all dodge rolls.
+ * 
+ */
 
 class Character {
     /**
@@ -285,7 +284,7 @@ class Character {
      */
     calcAnimalCategory () {
         let roll = dice.roll(1, 100).result
-        let category;
+        let category
 
         if (roll > 85) {
             category = 'Zoo Animals'
@@ -299,19 +298,26 @@ class Character {
             category = 'Urban Animals'
         }
 
-        return category;
+        return category
     }
 
     calcAnimalType () {
-        let match = _.where(ANIMAL_CHART, {category: this.category});
+        let that = this
+        let match = _.findWhere(ANIMAL_CHART, function (category) {
+            return category.category === that.category
+        })
+        let matchroll = dice.roll(1, 100).result
+        let type
 
-        console.log('Match: ', match);
+        match.types.forEach(function (t) {
+            if (matchroll >= t.minimum && matchroll <= t.maximum) {
+                type = t.name
+            }
+        })
+
+        return type
     }
 }
-
-
-
-
 
 const rollAttributes = function () {
     let roll = {
@@ -328,12 +334,11 @@ const rollAttributes = function () {
     for (let prop in roll) {
         if (roll[prop] >= 16) {
             roll[prop] += dice.roll(1, 6).result
-            console.log(prop + ' is exceptional: ', roll[prop]);
-        } else {
-            console.log(prop + ': ', roll[prop])
         }
     }
+
+    return roll
 }
 
-// let roll = rollAttributes();
-let ben = new Character(10, 10, 10, 10, 10, 10, 10, 10);
+let roll = rollAttributes();
+let ben = new Character(roll.IQ, roll.ME, roll.MA, roll.PS, roll.PP, roll.PE, roll.PB, roll.Spd);

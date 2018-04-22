@@ -10,7 +10,7 @@
 
 const dice = require('rpg-dice')
 const _ = require('underscore')
-const BONUS_ATTRIBUTE_CHART = [
+const BONUS_ATTRIBUTE_MAP = [
     { value: 16, IQ: .03, ME: 1, MA: .45, PS: 1, PP: 1, PE_a: .05, PE_b: 1, PB: .40, Spd: 1 },
     { value: 17, IQ: .04, ME: 1, MA: .50, PS: 2, PP: 1, PE_a: .06, PE_b: 1, PB: .45, Spd: 1 },
     { value: 18, IQ: .05, ME: 2, MA: .50, PS: 3, PP: 2, PE_a: .07, PE_b: 2, PB: .50, Spd: 1 },
@@ -39,7 +39,7 @@ const BONUS_ATTRIBUTE_CHART = [
     { value: 41, IQ: .28, ME: 13, MA: .99, PS: 26, PP: 13, PE_a: .30, PE_b: 13, PB: .99, Spd: 6 },
     { value: 42, IQ: .29, ME: 13, MA: .99, PS: 27, PP: 14, PE_a: .31, PE_b: 14, PB: .99, Spd: 7 }
 ]
-const ANIMAL_CHART = [
+const ANIMAL_MAP = [
     {
         category: 'Urban Animal',
         minimum: 1,
@@ -161,6 +161,147 @@ const ANIMAL_CHART = [
         ]
     }
 ]
+const MUTATION_MAP = [
+    {
+        type: 'Random Mutation',
+        minimum: 1,
+        maximum: 14,
+        description: 'This means that the animal just happened to come out like that. For example, in T.M.N.T.,Splinter was an unusually intelligent and skilled rat long before the accident that created the T.M.N.T. Roll on Wild Animal Education Table.'
+    },
+    {
+        type: 'Accidental Encounter',
+        minimum: 15,
+        maximum: 60,
+        description: 'Some "strange stuff", radiation, energy, chemicals, biologicals, or other strangeness, causes the animals to mutate. Roll on Wild Animal Education Table.'
+    },
+    {
+        type: 'Deliberate Experimentation',
+        minimum: 61,
+        maximum: 100,
+        description: 'Some kind of laboratory experiment is performed on the animal that causes the changes. The animal\'s structure or genetics were purposely altered for some purpose. Roll percentile again on the following table to find out the character\'s current relationship with the creator organization. This also determines the character\'s educational level.',
+        subtypes: [
+            {
+                minimum: 1,
+                maximum: 10,
+                description: 'Adopted and raised as one of a researcher\'s family. Still living in the home, mutually loves and is loved by family members. This character has been treated as a human and, while some discrimination may have been experienced, the character will feel that humans are basically good. Educated as a normal human student equal to one year of college. Select two skill programs and 10 Secondary skills. Skill bonus + 10% on scholastic skills only. Character can buy any standard weapons, armour or equipment with 3D6 time $1,000 in savings.'
+            },
+            {
+                minimum: 11,
+                maximum: 20,
+                description: 'Raised in the home of a researcher as a pet. Still living in the home and fairly loyal to family members. The character will resent humans somewhat, but will still attempt to find acceptance among mankind. Trained instead of educated. (No skill bonuses) Automatically knows Mathematics: Basic, can read and write and speak native language (the same as the researcher\'s family). Also, select 14 Secondary skills. Can Spend 1D6 times $1,000 on equipment.'
+            },
+            {
+                minimum: 21,
+                maximum: 30,
+                description: 'Raised in the home of a researcher as a pet. Escaped and hostile, but not hunted with deadly force. The character will be resentful of humans. Roll education as wild animal character.'
+            },
+            {
+                minimum: 31,
+                maximum: 40,
+                description: 'Brought up as an experiment. Trained and educated with cruel punishments. The character will distrust humans. Education consists of 6 Physical skills and 12 Secondary skills. Escaped, now hunted by the organization. Has 2D6 time $500 to spend on equipment purchased before the escape.'
+            },
+            {
+                minimum: 41,
+                maximum: 50,
+                description: 'Raised as a caged, experimental animal. Character escaped and wants to destroy the organization and has a strong distrust (and possibly hatred) of all humans. Roll education as wild animal character.'
+            },
+            {
+                minimum: 51,
+                maximum: 60,
+                description: 'Educated and trained as if the character were a normal human. Character has good relationships and balanced outlook on humans. Education is equal to one year of college. Select two skill programs and 8 Secondary skills. Skill bonus + 10% on scholastic skills only. Separate from the organization, but with a good relationship. Can buy weapons, armour and equipment with 2D6 times $2,000 in savings'
+            },
+            {
+                minimum: 61,
+                maximum: 70,
+                description: 'Rescued from the organization and adopted by a friendly researcher at a young age. Raised while continuously being hunted by the organization. Character distrusts humans but knows that there are some good people who deserve help and friendship. Education: has learned 4 scholastic skills which can be selected from communications, computer, physical, pilot basic, science or technical. Also knows 3 military/espionage skills and 10 Secondary skills. Skill bonus is + 8% on scholastic skills only. Savings are 2D6 times $200.'
+            },
+            {
+                minimum: 71,
+                maximum: 80,
+                description: 'Highly trained and educated as a specialist using the character\'s natural abilities. The character feels equal or is equal to Bachelor\'s Degree in college. Select 3 skill programs and 10 Secondary skills. Skill bonus is + 25% on all scholastic skills only. Character is a valuable employee of the organization and is paid at least triple the going rate (minimum $75,000 per year). Character has saved 1D6 times $10,000.'
+            },
+            {
+                minimum: 81,
+                maximum: 90,
+                description: 'Highly trained as a specialist using the character\'s natural abilities. Education is equal to three years of college. Select 3 skill programs and 8 Secondary skills. Skill bonus is + 15% on all scholastic skill only. The character was treated as a slave and eventually escaped. Character has stolen $30,000 to $180,000 (3D6 times $10,000) worth of cash and equipment before leaving. Character distrusts most humans. Hunted by law enforcement agencies and organization.'
+            },
+            {
+                minimum: 91,
+                maximum: 100,
+                description: 'These characters have been deliberately raised as assassins or warriors. Knows 8 Secondary skills and choice of Expert, Martial Arts, or Assassin Hand to Hand combat. +15% bonus in all Military skills. Character knows and respects some humans but distrusts all large organizations. The character escaped the organization and is now considered very dangerous and is hunted by law enforcement agencies and the organization. Before escaping, the character took $20,000 to $120,000 (1D6 times $20,000) worth of equipment and weapons.'
+            }
+        ],
+    }
+]
+const ORGANIZATION_MAP = [
+    {
+        name: 'Biological Research Facility',
+        minimum: 1,
+        maximum: 25
+    },
+    {
+        name: 'Private Industry',
+        minimum: 26,
+        maximum: 45
+    },
+    {
+        name: 'Secret Medical Experiment Organization',
+        minimum: 46,
+        maximum: 50
+    },
+    {
+        name: 'Secret Criminal Organization',
+        minimum: 51,
+        maximum: 55
+    },
+    {
+        name: 'Secret Crime Fighting Organization',
+        minimum: 56,
+        maximum: 60
+    },
+    {
+        name: 'Secret Military Organization',
+        minimum: 61,
+        maximum: 65
+    },
+    {
+        name: 'Secret Espionage Organization',
+        minimum: 66,
+        maximum: 70
+    },
+    {
+        name: 'Secret Medical Research Organization',
+        minimum: 71,
+        maximum: 75
+    },
+    {
+        name: 'Military Organization',
+        minimum: 76,
+        maximum: 100
+    },
+]
+const EDUCATION_MAP = [
+    {
+        minimum: 1,
+        maximum: 20,
+        description: 'Everything is self-taught as the animal lives in the wild with no help or assistance. Character mistrusts humans and other animals. Basic reading, writing and arithmetic are at a low level. Wilderness skills include Prowl (+ 24%), Survival Skills (+ 24%), Escape Artist (+10%), Climbing (+ 15%) and Swimming (+10%). There is an S.D.C. bonus of + 10%, a P.E. bonus of +6, a P.S. bonus of +3, an a P.P. bonus of + 2 and two additional attacks per melee. Characters can pick only one (1) Secondary skill. Character has scavenged 3D6 times $100 in various equipment, most in poor condition.'
+    },
+    {
+        minimum: 21,
+        maximum: 40,
+        description: 'By skulking around the fringes of society the character picks up rudimentary education. The character probably has a small number of human friends but distrusts people in general. Knows 14 Secondary skills. Character also has Prowl (+ 12%), a P.P. bonus of +1, and Hand to Hand Basic. Character has scavenged 3D6 times $200 in equipment.'
+    },
+    {
+        minimum: 41,
+        maximum: 90,
+        description: 'Adopted by a "mentor" who teaches and guides the character in some form of special training. This is often Ninjitsu, but all areas of special training can be selected. These characters will learn to be philosophic about all creatures. Their attitude could be summed up as, some people are good, some bad, everyone deserves a chance to earn your trust. Ninja characters learn 3 military/espionage skills, 10 secondary skills (with a skill bonus of + 5%) and Hand to Hand Ninjitsu. In addition, the character has a choice of 3 ancient or ninja weapon proficiencies. Character has scavenged and build 3D6 times $100 worth of equipment.'
+    },
+    {
+        minimum: 91,
+        maximum: 100,
+        description: 'Character goes public and is educated at a major university. The character likes and trusts humanity in general. Education is four years of college. Select 3 skill programs and 10 Secondary skills. The skill bonus is +20% on all scholastic skills only. Although struggling for financing, at least 2D6 times $500 worth of equipment has been collected.'
+    }
+]
 
 /**
  * Character Attribute Key
@@ -248,6 +389,10 @@ class Character {
         this.SDC = this.calcSDC()
         this.category = this.calcAnimalCategory()
         this.type = this.calcAnimalType()
+
+        if (this.category === 'Wild Animal') {
+            this.education = this.calcEducation()
+        }
     }
 
     /**
@@ -303,7 +448,7 @@ class Character {
 
     calcAnimalType () {
         let that = this
-        let match = _.findWhere(ANIMAL_CHART, function (category) {
+        let match = _.findWhere(ANIMAL_MAP, function (category) {
             return category.category === that.category
         })
         let matchroll = dice.roll(1, 100).result
@@ -316,6 +461,19 @@ class Character {
         })
 
         return type
+    }
+
+    calcEducation () {
+
+    }
+
+    calcMutationCause () {
+        let roll = dice.roll(1, 100).result
+        let match = _.findWhere(MUTATION_MAP, function (mutation) {
+            return roll >= mutation.minimum && roll <= mutation.maximum
+        })
+
+        return match.type
     }
 }
 

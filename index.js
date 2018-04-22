@@ -8,6 +8,7 @@
  * https://rpg.rem.uz/_Collections/Cartoon%20Games/TMNT/TMNT%20-%20Corebook.pdf
  */
 
+
 const dice = require('rpg-dice')
 const _ = require('underscore')
 const BONUS_ATTRIBUTE_MAP = [
@@ -166,12 +167,14 @@ const MUTATION_MAP = [
         type: 'Random Mutation',
         minimum: 1,
         maximum: 14,
+        animal_education: true,
         description: 'This means that the animal just happened to come out like that. For example, in T.M.N.T.,Splinter was an unusually intelligent and skilled rat long before the accident that created the T.M.N.T. Roll on Wild Animal Education Table.'
     },
     {
         type: 'Accidental Encounter',
         minimum: 15,
         maximum: 60,
+        animal_education: true,
         description: 'Some "strange stuff", radiation, energy, chemicals, biologicals, or other strangeness, causes the animals to mutate. Roll on Wild Animal Education Table.'
     },
     {
@@ -181,53 +184,73 @@ const MUTATION_MAP = [
         description: 'Some kind of laboratory experiment is performed on the animal that causes the changes. The animal\'s structure or genetics were purposely altered for some purpose. Roll percentile again on the following table to find out the character\'s current relationship with the creator organization. This also determines the character\'s educational level.',
         subtypes: [
             {
+                type: 'Deliberate Experimentation',
                 minimum: 1,
                 maximum: 10,
+                animal_education: false,
                 description: 'Adopted and raised as one of a researcher\'s family. Still living in the home, mutually loves and is loved by family members. This character has been treated as a human and, while some discrimination may have been experienced, the character will feel that humans are basically good. Educated as a normal human student equal to one year of college. Select two skill programs and 10 Secondary skills. Skill bonus + 10% on scholastic skills only. Character can buy any standard weapons, armour or equipment with 3D6 time $1,000 in savings.'
             },
             {
+                type: 'Deliberate Experimentation',
                 minimum: 11,
                 maximum: 20,
+                animal_education: false,
                 description: 'Raised in the home of a researcher as a pet. Still living in the home and fairly loyal to family members. The character will resent humans somewhat, but will still attempt to find acceptance among mankind. Trained instead of educated. (No skill bonuses) Automatically knows Mathematics: Basic, can read and write and speak native language (the same as the researcher\'s family). Also, select 14 Secondary skills. Can Spend 1D6 times $1,000 on equipment.'
             },
             {
+                type: 'Deliberate Experimentation',
                 minimum: 21,
                 maximum: 30,
+                animal_education: true,
                 description: 'Raised in the home of a researcher as a pet. Escaped and hostile, but not hunted with deadly force. The character will be resentful of humans. Roll education as wild animal character.'
             },
             {
+                type: 'Deliberate Experimentation',
                 minimum: 31,
                 maximum: 40,
+                animal_education: false,
                 description: 'Brought up as an experiment. Trained and educated with cruel punishments. The character will distrust humans. Education consists of 6 Physical skills and 12 Secondary skills. Escaped, now hunted by the organization. Has 2D6 time $500 to spend on equipment purchased before the escape.'
             },
             {
+                type: 'Deliberate Experimentation',
                 minimum: 41,
                 maximum: 50,
+                animal_education: true,
                 description: 'Raised as a caged, experimental animal. Character escaped and wants to destroy the organization and has a strong distrust (and possibly hatred) of all humans. Roll education as wild animal character.'
             },
             {
+                type: 'Deliberate Experimentation',
                 minimum: 51,
                 maximum: 60,
+                animal_education: false,
                 description: 'Educated and trained as if the character were a normal human. Character has good relationships and balanced outlook on humans. Education is equal to one year of college. Select two skill programs and 8 Secondary skills. Skill bonus + 10% on scholastic skills only. Separate from the organization, but with a good relationship. Can buy weapons, armour and equipment with 2D6 times $2,000 in savings'
             },
             {
+                type: 'Deliberate Experimentation',
                 minimum: 61,
                 maximum: 70,
+                animal_education: false,
                 description: 'Rescued from the organization and adopted by a friendly researcher at a young age. Raised while continuously being hunted by the organization. Character distrusts humans but knows that there are some good people who deserve help and friendship. Education: has learned 4 scholastic skills which can be selected from communications, computer, physical, pilot basic, science or technical. Also knows 3 military/espionage skills and 10 Secondary skills. Skill bonus is + 8% on scholastic skills only. Savings are 2D6 times $200.'
             },
             {
+                type: 'Deliberate Experimentation',
                 minimum: 71,
                 maximum: 80,
+                animal_education: false,
                 description: 'Highly trained and educated as a specialist using the character\'s natural abilities. The character feels equal or is equal to Bachelor\'s Degree in college. Select 3 skill programs and 10 Secondary skills. Skill bonus is + 25% on all scholastic skills only. Character is a valuable employee of the organization and is paid at least triple the going rate (minimum $75,000 per year). Character has saved 1D6 times $10,000.'
             },
             {
+                type: 'Deliberate Experimentation',
                 minimum: 81,
                 maximum: 90,
+                animal_education: false,
                 description: 'Highly trained as a specialist using the character\'s natural abilities. Education is equal to three years of college. Select 3 skill programs and 8 Secondary skills. Skill bonus is + 15% on all scholastic skill only. The character was treated as a slave and eventually escaped. Character has stolen $30,000 to $180,000 (3D6 times $10,000) worth of cash and equipment before leaving. Character distrusts most humans. Hunted by law enforcement agencies and organization.'
             },
             {
+                type: 'Deliberate Experimentation',
                 minimum: 91,
                 maximum: 100,
+                animal_education: false,
                 description: 'These characters have been deliberately raised as assassins or warriors. Knows 8 Secondary skills and choice of Expert, Martial Arts, or Assassin Hand to Hand combat. +15% bonus in all Military skills. Character knows and respects some humans but distrusts all large organizations. The character escaped the organization and is now considered very dangerous and is hunted by law enforcement agencies and the organization. Before escaping, the character took $20,000 to $120,000 (1D6 times $20,000) worth of equipment and weapons.'
             }
         ],
@@ -389,10 +412,8 @@ class Character {
         this.SDC = this.calcSDC()
         this.category = this.calcAnimalCategory()
         this.type = this.calcAnimalType()
-
-        if (this.category === 'Wild Animal') {
-            this.education = this.calcEducation()
-        }
+        this.mutation = this.calcMutation()
+        // this.education = this.calcEducation()
     }
 
     /**
@@ -463,17 +484,39 @@ class Character {
         return type
     }
 
-    calcEducation () {
+    calcMutation () {
+        let that = this
+        let roll = dice.roll(1, 100).result
+        let match = _.find(MUTATION_MAP, function (mutation) {
+            return (roll >= mutation.minimum && roll <= mutation.maximum)
+        });
+        let animaleducation = match.animal_education
+        let description = match.description
 
+        if (match.type === 'Deliberate Experimentation') {
+            let roll = dice.roll(1, 100).result
+            let newmatch = _.find(match.subtypes, function (subtype) {
+                return (roll >= subtype.minimum && roll >= subtype.maximum)
+            });
+            animaleducation = newmatch.animal_education
+            description = newmatch.description
+            match = newmatch
+        }
+
+        return {
+            type: match.type,
+            animal_education: animaleducation,
+            description: description,
+        }
     }
 
-    calcMutationCause () {
+    calcEducation () {
         let roll = dice.roll(1, 100).result
-        let match = _.findWhere(MUTATION_MAP, function (mutation) {
-            return roll >= mutation.minimum && roll <= mutation.maximum
-        })
+        console.log('Education: ', this.animal_education);
 
-        return match.type
+        if (this.mutation.animal_education) {
+            let match
+        }
     }
 }
 
@@ -498,5 +541,15 @@ const rollAttributes = function () {
     return roll
 }
 
-let roll = rollAttributes();
-let ben = new Character(roll.IQ, roll.ME, roll.MA, roll.PS, roll.PP, roll.PE, roll.PB, roll.Spd);
+
+let rollCharacter = function () {
+    let roll = rollAttributes();
+    let ben = new Character(roll.IQ, roll.ME, roll.MA, roll.PS, roll.PP, roll.PE, roll.PB, roll.Spd);
+
+    console.log(ben)
+}
+
+rollCharacter();
+
+
+

@@ -98,7 +98,70 @@ export const ANIMAL_MAP = [
       {name: 'Lynx', minimum: 34, maximum: 35},
       {name: 'Wolverine', minimum: 36, maximum: 37},
       {name: 'Weasel', minimum: 38, maximum: 45},
-      {name: 'Alligator', minimum: 46, maximum: 49},
+      {
+        name: 'Alligator',
+        minimum: 46,
+        maximum: 49,
+        description: 'Alligators are the largest reptiles in North America. They are dangerous swamp-dwelling carnivores. Their horny scalesprovide extra protection. Long jaws filled with conical teeth are designed for grasping and tearing apart prey.',
+        size_level: 9,
+        length: 'Up to 20 feet',
+        weight: 'up to 175 lbs',
+        build: 'long',
+        bio_e: 40,
+        attribute_bonuses: [
+          { type: 'PS', bonus: '+3' },
+          { type: 'PE', bonus: '+1' },
+          { type: 'Spd', bonus: '+1' }
+        ],
+        human_features: [
+          {
+            type: 'Hands',
+            value: [
+              '5 BIO-E for Partial',
+              '10 BIO-E for Full'
+            ]
+          },
+          {
+            type: 'Biped',
+            value: [
+              '5 BIO-E for Partial',
+              '10 BIO-E for Full'
+            ]
+          },
+          {
+            type: 'Speech',
+            value: [
+              '5 BIO-E for Partial',
+              '10 BIO-E for Full'
+            ]
+          },
+          {
+            type: 'Looks',
+            value: [
+              'None,  Large  snout,  no  external  ears,  large  scales  and  anelongated  body.',
+              '5  BIO-E  for  Partial,  definite  snout,  no  external  ears,  noticeablescales,  and  a  long  body.',
+              '10 BIO-E for Full, lumpy features, hairless, small ears and pointed teeth.'
+            ]
+          },
+          {
+            type: 'Natural Weapons',
+            value: [
+              '5 BIO-E for Teeth that do 1DS damage.'
+            ]
+          },
+          {
+            type: 'Powers',
+            value: [
+              '15  BIO-E  for  light  Natural  Armour;  A.R.:  6  and  S.D.C.:  +20',
+              '30 BIO-E for Medium Natural Body Armour; A.R.: 8 and S.D.C.:  +40',
+              '45 BIO-E for Heavy Natural Body Armour; A.R.:   l0   and S.D.C.:  +60',
+              '5  BIO-E  Hold  Breath',
+              '10  BIO-E  for  Swim  equal  to  competitive  swim  skill;  80%',
+              '20  BIO-E  for  Quick  Run,  it  can  make  a  lightning  dash/run  at  35mphfor  a  maximum  distance  of  200  feet.   +2  to  dodge  while  running.Can  only  Quick  Run  once  every  3rd  melee.'
+            ]
+          }
+        ]
+      },
       {name: 'Otter', minimum: 50, maximum: 52},
       {name: 'Beaver', minimum: 53, maximum: 55},
       {name: 'Muskrat', minimum: 56, maximum: 60},
@@ -148,16 +211,213 @@ export const ANIMAL_MAP = [
       {name: 'Leopard', minimum: 16, maximum: 20},
       {name: 'Cheetah', minimum: 21, maximum: 25},
       {name: 'Polar Bear', minimum: 26, maximum: 30},
-      {name: 'Crocodile', minimum: 31, maximum: 35},
-      {name: 'Aardvark', minimum: 36, maximum: 40},
+      {
+        name: 'Crocodile',
+        minimum: 31,
+        maximum: 35,
+        description: 'Crocodiles are the largest reptiles in North America. They are dangerous swamp-dwelling carnivores. Their horny scalesprovide extra protection. Long jaws filled with conical teeth are designed for grasping and tearing apart prey.',
+        size_level: 9,
+        length: 'Up to 20 feet',
+        weight: 'up to 175 lbs',
+        build: 'long',
+        bio_e: 40,
+        attribute_bonuses: [
+          { type: 'PS', bonus: '+3' },
+          { type: 'PE', bonus: '+1' },
+          { type: 'Spd', bonus: '+1' }
+        ],
+        human_features: [
+          {
+            type: 'Hands',
+            value: [
+              '5 BIO-E for Partial',
+              '10 BIO-E for Full'
+            ]
+          },
+          {
+            type: 'Biped',
+            value: [
+              '5 BIO-E for Partial',
+              '10 BIO-E for Full'
+            ]
+          },
+          {
+            type: 'Speech',
+            value: [
+              '5 BIO-E for Partial',
+              '10 BIO-E for Full'
+            ]
+          },
+          {
+            type: 'Looks',
+            value: [
+              'None,  Large  snout,  no  external  ears,  large  scales  and  anelongated  body.',
+              '5  BIO-E  for  Partial,  definite  snout,  no  external  ears,  noticeablescales,  and  a  long  body.',
+              '10 BIO-E for Full, lumpy features, hairless, small ears and pointed teeth.'
+            ]
+          },
+          {
+            type: 'Natural Weapons',
+            value: [
+              '5 BIO-E for Teeth that do 1DS damage.'
+            ]
+          },
+          {
+            type: 'Powers',
+            value: [
+              '15  BIO-E  for  light  Natural  Armour;  A.R.:  6  and  S.D.C.:  +20',
+              '30 BIO-E for Medium Natural Body Armour; A.R.: 8 and S.D.C.:  +40',
+              '45 BIO-E for Heavy Natural Body Armour; A.R.:   l0   and S.D.C.:  +60',
+              '5  BIO-E  Hold  Breath',
+              '10  BIO-E  for  Swim  equal  to  competitive  swim  skill;  80%',
+              '20  BIO-E  for  Quick  Run,  it  can  make  a  lightning  dash/run  at  35mphfor  a  maximum  distance  of  200  feet.   +2  to  dodge  while  running.Can  only  Quick  Run  once  every  3rd  melee.'
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Aardvark',
+        description: 'Aardvarks are a type of anteater totally adapted to feeding on ants and termites. They are equipped with claws for digging into ant and termite lairs. Aardvarks eat insects with a long sticky tongue. They are found only in southern Africa.',
+        minimum: 36,
+        maximum: 40,
+        size_level: 5,
+        length: '4 Feet',
+        weight: '40 lbs',
+        build: 'Medium',
+        bio_e: 60,
+        attribute_bonuses: [
+          { type: 'PS', bonus: '+2' },
+          { type: 'PP', bonus: '+1' },
+          { type: 'PE', bonus: '+2' }
+        ],
+        human_features: [
+          {
+            type: 'Hands',
+            value: [
+              '5 BIO-E for Partial, three claw-like fingers and a thumb.',
+              '10 BIO-E for Full, three fingers and a thumb.'
+            ]
+          },
+          {
+            type: 'Biped',
+            value: [
+              '5 BIO-E for Partial',
+              '10 BIO-E for Full'
+            ]
+          },
+          {
+            type: 'Speech',
+            value: [
+              '5 BIO-E for Partial',
+              '10 BIO-E for Full'
+            ]
+          },
+          {
+            type: 'Looks',
+            value: [
+              'None, mule-like ears stick straight out from the head, theround snout is very long, thick skin with sparse, course hair, and along naked tail.',
+              '5 BIO-E for Partial, Ears are large and stick above the head, thereis a noticeable snout, hair is patchy and course, and there is still a short naked tail.',
+              '10 BIO-E for Full, Ears are simply larger than normal and stickout somewhat, jaw and lips protrude, small teeth, hairless and tail-less.'
+            ]
+          },
+          {
+            type: 'Natural Weapons',
+            value: [
+              '5 BIO-E for Claws that do 1D6 damage.'
+            ]
+          },
+          {
+            type: 'Powers',
+            value: [
+              '5 BIO-E for Digging',
+              '10 BIO-E for Tunneling'
+            ]
+          }
+        ]
+      },
       {name: 'Rhinoceros', minimum: 41, maximum: 45},
       {name: 'Hippopotamus', minimum: 46, maximum: 50},
       {name: 'Elephant', minimum: 51, maximum: 60},
-      {name: 'Chimpanzee', minimum: 61, maximum: 65},
-      {name: 'Orangutan', minimum: 66, maximum: 70},
-      {name: 'Gorilla', minimum: 71, maximum: 75},
-      {name: 'Monkey', minimum: 76, maximum: 85},
-      {name: 'Baboon', minimum: 86, maximum: 90},
+      {
+        name: 'Chimpanzee',
+        minimum: 61,
+        maximum: 65
+      },
+      {
+        name: 'Orangutan',
+        minimum: 66,
+        maximum: 70
+      },
+      {
+        name: 'Gorilla',
+        minimum: 71,
+        maximum: 75
+      },
+      {
+        name: 'Monkey',
+        minimum: 76,
+        maximum: 85
+      },
+      {
+        name: 'Baboon',
+        minimum: 86,
+        maximum: 90,
+        description: 'These animals are powerful ground dwelling tribal monkeys.  Mandrills  and  Geladas  should  have  the  same  characteristics.',
+        size_level: 6,
+        length: '3 feet',
+        weight: '40-65 lbs',
+        build: 'medium',
+        bio_e: 35,
+        attribute_bonuses: [
+          { type: 'IQ', bonus: '+4' },
+          { type: 'ME', bonus: '+2' },
+          { type: 'MA', bonus: '+3' },
+          { type: 'PS', bonus: '+3' },
+          { type: 'PP', bonus: '+2' },
+        ],
+        human_features: [
+          {
+            type: 'Hands',
+            value: [
+              'Partial Automatic',
+              '5 BIO-E for Full'
+            ]
+          },
+          {
+            type: 'Biped',
+            value: [
+              'Partial Automatic',
+              '5 BIO-E for Full'
+            ]
+          },
+          {
+            type: 'Speech',
+            value: [
+              '5 BIO-E for Partial',
+              '10 BIO-E for Full'
+            ]
+          },
+          {
+            type: 'Looks',
+            value: [
+              'None,  large  nose,  doglike  face,  shaggy  tail,  and  heavy  fur.',
+              '5  BIO-E  for  Partial,  flattened  dog-like  face,  large  bony  protru-sion  over  the  eyes,  heavy  body  hair  and  small  hairy  tail.',
+              '10  BIO-E  for  Full,  long  face,  heavy  head  and  body  hair  andpowerful  build.'
+            ]
+          },
+          {
+            type: 'Natural Weapons',
+            value: ['5 BIO-E for Teeth that do 1D8 damage']
+          },
+          {
+            type: 'powers',
+            value: [
+              '5 BIO-E for Advance Vision',
+              '15 BIO-E for Prehensile Feet'
+            ]
+          }
+        ]
+      },
       {name: 'Camel', minimum: 91, maximum: 95},
       {name: 'Buffalo', minimum: 96, maximum: 100},
     ]
@@ -516,16 +776,12 @@ class Character {
   }
 
   calcEducation () {
-    let roll = dice.roll(1, 100).result
-    console.log('Mutation: ', this.mutation)
-    console.log('Roll: ', roll)
+    const roll = dice.roll(1, 100).result
 
     if ( this.mutation.animal_education === true ) {
-
-    }
-    // if (this.mutation.animal_education) {
-    //   let match
-    // }
+      const newmatch = _.find(EDUCATION_MAP, (level) => roll >= level.minimum && roll >= level.maximum)
+      return newmatch
+    } else return false
   }
 }
 
@@ -551,12 +807,12 @@ const rollAttributes = function () {
 }
 
 
-const rollCharacter = () => {
-  let roll = rollAttributes();
-  let ben = new Character(roll.IQ, roll.ME, roll.MA, roll.PS, roll.PP, roll.PE, roll.PB, roll.Spd);
+export const rollCharacter = () => {
+  let roll = rollAttributes()
 
-  console.log(ben)
+  return new Character(roll.IQ, roll.ME, roll.MA, roll.PS, roll.PP, roll.PE, roll.PB, roll.Spd)
 }
+
 
 rollCharacter()
 

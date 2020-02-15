@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
 import uniqid from 'uniqid'
-import { ANIMAL_MAP, ORGANIZATION_MAP, MUTATION_MAP, EDUCATION_MAP } from './game/Character'
+import {
+  ANIMAL_MAP,
+  ORGANIZATION_MAP,
+  MUTATION_MAP,
+  EDUCATION_MAP,
+  rollCharacter } from './game/Character'
 import {
   Container,
   Columns,
   Column,
   Control,
   Field,
+  Input,
   Label,
   Select } from 'bloomer'
 import Header from './components/Header'
@@ -14,11 +20,18 @@ import Stats from './components/Stats'
 import './App.scss'
 
 const App = () => {
+  const [name, setName] = useState(null)
   const [category, setCategory] = useState(null)
   const [animal, setAnimal] = useState(null)
   const [mutation, setMutation] = useState(null)
   const [organization, setOrganization] = useState(null)
   const [education, setEducation] = useState(null)
+
+  const changeName = ev => {
+    const { target } = ev
+    const newName = target.value
+    setName(newName)
+  }
 
   const changeCategory = ev => {
     const { target } = ev
@@ -50,12 +63,27 @@ const App = () => {
     setEducation(newEdu)
   }
 
+  const handleRollCharacter = ev => {
+    ev.preventDefault()
+    const newCharacter = rollCharacter()
+    console.log('Character: ', newCharacter)
+  }
+
   return (
-    <div className="App">
+    <div className="App" style={{height: '100%', background: 'url(turtles2.webp) no-repeat center center'}}>
       <Header />
       <Container>
         <Columns isCentered>
           <Column isSize="1/3">
+            <button onClick={handleRollCharacter}>Roll Character</button>
+            <div>
+              <Field>
+                <Label>Character Name</Label>
+                <Control>
+                  <Input onChange={changeName} type="text" value={name !== null ? name : ''} />
+                </Control>
+              </Field>
+            </div>
             <div>
               <Field>
                 <Label>Animal Type</Label>

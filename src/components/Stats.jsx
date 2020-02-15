@@ -1,16 +1,18 @@
 import React from 'react'
 import { Box } from 'bloomer'
+import AnimalStats from './AnimalStats'
 
 const Stats = props => {
   return (
     <Box>
       <ul>
-        { props.category && <li>Category: { props.category.category }</li> }
-        { props.animal && <li>Animal: { props.animal.name }</li> }
-        { props.mutation && <li>Mutation: { props.mutation.type }</li> }
-        { props.org && <li>Organization: { props.org.name }</li> }
-        { props.education && <li>Education: { props.education.description }</li> }
+        { props.category && <li><strong>Category</strong>: { props.category.category }</li> }
+        { props.animal && <li><strong>Animal</strong>: { props.animal.name }</li> }
+        { props.mutation && <li><strong>Mutation</strong>: { props.mutation.type }</li> }
+        { props.org && <li><strong>Organization</strong>: { props.org.name }</li> }
+        { props.education && <li><strong>Education</strong>: { props.education.description }</li> }
       </ul>
+      { props.animal && <AnimalStats animal={props.animal} /> }
     </Box>
   )
 }

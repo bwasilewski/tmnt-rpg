@@ -591,6 +591,23 @@ export const EDUCATION_MAP = [
     description: 'Character goes public and is educated at a major university. The character likes and trusts humanity in general. Education is four years of college. Select 3 skill programs and 10 Secondary skills. The skill bonus is +20% on all scholastic skills only. Although struggling for financing, at least 2D6 times $500 worth of equipment has been collected.'
   }
 ]
+export const ALIGNMENT_MAP = [
+  {
+    name: 'Principled  (Good)',
+    type: 'Good',
+    description: 'Principled  characters  are,  generally,  the  strong,  moral  character.Superman is of principled alignment, with the highest regard for other\'slives  and  well-  being,  truth  and  honor.  They  will  always  attempt  towork  with  and  within  the  law.'
+  },
+  {
+    name: 'Scrupulous (Good)',
+    type: 'Good',
+    description: 'Scrupulous  characters  value  life  and  freedom  above  all  else,  anddespise  those  who  would  deprive  others  of them.  This  type  of hero  istypically portrayed in many Clint Eastwood and Charles Bronson films;the  person  who  is  forced  to  work  beyond  the law,  yet for the law,  andthe greater good of the people.  They are not vicious  or vindictive men,but are men driven to right injustice. I must point out that these characterswill always attempt to work with or within the law whenever possible.'
+  },
+  {
+    name: 'Unprincipled (Selfish)',
+    type: 'Selfish',
+    description: 'This,  basically,  good  person  tends  to  be  selfish,  greedy,  and  holdshis/her  personal  freedom  and  welfare  above  almost  everything  else.He/she  dislikes  confining  laws,  self-discipline,  and  distrusts  authority.He  views  the  law  as  well  intentioned,  but  clumsy  and  ineffective.Keeping his best interests in mind he  will  always  look out for himself.This tends to be an arrogant,  impetuous,  schemer seeking the praise ofmillions  and  making  a  buck  to  boot.  He  is  a  freebooter  who  will  do what he must to achieve his goals,  stopping short of anarchy and a totaldisregard  of the  law.  This  guy  is  likely  to  be  a  vigilante  type  whoseintentions  are  good,  tries  to  be  fair  and  honest,  but  finds  the  law  tooconfining  to  be  effective.  Thus,  he  goes  his  own  more  efficient  route(at least that\'s how he  sees it),  working outside the law. This  character  is  also  likely  to  take  "dirty"  money  and  items,  withthe  concept  that  it will  help  him  in  his crusade  against evil.  An  ironictwist  of justice  as  he  sees  it.  After  all,  the  loss  of  money/items  willhurt  the  villains  too.  With  this  in  mind,  he  may  also  destroy  propertyof known criminals.  He will not deal in illegal activities, drugs, or takemoney  from  innocent  or  good  people  (only  known  criminals).  Theunprincipled character may associate with both good and evil characters,and often  has  paid  informants,  spies,  and  stoolies.  He  is often temptedto  lie  and  cheat,  and  hates  himself for  being  loyal  to  his  ideals  andhelping others.  He is basically a  good guy.' 
+  }
+]
 
 /**
  * Character Attribute Key

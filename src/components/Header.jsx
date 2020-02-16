@@ -18,8 +18,9 @@ const Header = props => {
       </NavbarBrand>
       <NavbarMenu>
         <NavbarStart>
-          <NavbarItem href="/home">Home</NavbarItem>
+          <NavbarItem href="/">Home</NavbarItem>
           <NavbarItem href="/about">About</NavbarItem>
+          <NavbarItem href="/glossary">Glossary</NavbarItem>
         </NavbarStart>
       </NavbarMenu>
     </Navbar>

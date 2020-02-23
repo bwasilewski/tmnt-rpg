@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Container,
   Navbar,
   NavbarBrand,
   NavbarItem,
@@ -10,20 +11,24 @@ import {
 const Header = props => {
 
   return (
-    <Navbar>
-      <NavbarBrand>
-        <NavbarItem>
-          <Title isSize={1}>TMNT RPG</Title>
-        </NavbarItem>
-      </NavbarBrand>
-      <NavbarMenu>
-        <NavbarStart>
-          <NavbarItem href="/">Home</NavbarItem>
-          <NavbarItem href="/about">About</NavbarItem>
-          <NavbarItem href="/glossary">Glossary</NavbarItem>
-        </NavbarStart>
-      </NavbarMenu>
-    </Navbar>
+    <Container>
+      <Navbar>
+        <NavbarBrand>
+          <NavbarItem>
+            <Title isSize={1}>TMNT RPG</Title>
+          </NavbarItem>
+        </NavbarBrand>
+        <NavbarMenu>
+          <NavbarStart>
+            <NavbarItem href="/">Home</NavbarItem>
+            <NavbarItem href="/about">About</NavbarItem>
+            <NavbarItem href="/glossary">Glossary</NavbarItem>
+            <NavbarItem href="/admin">Admin</NavbarItem>
+            <NavbarItem href="/animals">Animals</NavbarItem>
+          </NavbarStart>
+        </NavbarMenu>
+      </Navbar>
+    </Container>
   )
 }
 

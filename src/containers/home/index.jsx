@@ -80,7 +80,7 @@ const Home = props => {
       <Columns isCentered>
         <Column isSize="1/3">
           <button onClick={handleRollCharacter}>Roll Character</button>
-          <div>
+          {/* <div>
             <Field>
               <Label>Character Name</Label>
               <Control>
@@ -94,7 +94,7 @@ const Home = props => {
                 <Input onChange={changeOccupation} type="text" value={occupation !== null ? occupation : ''} />
               </Control>
             </Field>
-          </div>
+          </div> */}
           <div>
             <Field>
               <Label>Animal Type</Label>
@@ -177,5 +177,5 @@ const Home = props => {
     </Container>
   )
 }
- 
+
 export default Home

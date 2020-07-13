@@ -4,9 +4,9 @@ import { Container, Title } from 'bloomer'
 const About = props => {
   return (
     <Container>
-      <Title is2>About</Title>
+      <Title isSize={2}>About</Title>
     </Container>
   )
 }
- 
+
 export default About

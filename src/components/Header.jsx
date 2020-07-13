@@ -22,6 +22,7 @@ const Header = props => {
           <NavbarStart>
             <NavbarItem href="/">Home</NavbarItem>
             <NavbarItem href="/about">About</NavbarItem>
+            <NavbarItem href="/rules">Rules</NavbarItem>
             <NavbarItem href="/glossary">Glossary</NavbarItem>
             <NavbarItem href="/admin">Admin</NavbarItem>
             <NavbarItem href="/animals">Animals</NavbarItem>

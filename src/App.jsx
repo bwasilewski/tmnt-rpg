@@ -5,6 +5,7 @@ import About from './containers/about'
 import Glossary from './containers/glossary'
 import Admin from './containers/admin'
 import Animals from './containers/animals'
+import Rules from './containers/rules'
 
 import Header from './components/Header'
 
@@ -25,6 +26,7 @@ const App = () => {
         <Route exact path="/glossary" component={Glossary} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/animals" component={Animals} />
+        <Route exact path="/rules" component={Rules} />
       </BrowserRouter>
     </div>
   )
